@@ -11,7 +11,11 @@ samplingTime = 1/samplingRate;
 endTime = length(bits)/bitrate;
 time = 0:samplingTime:endTime;
 index = 1;
-pre = -1;
+
+pre = 1;
+if(bits(1)==1)
+  pre = -1;
+endif
 for i=1:length(time)
   if(bits(index)==1)
     modulation(i) = voltage*(pre);
