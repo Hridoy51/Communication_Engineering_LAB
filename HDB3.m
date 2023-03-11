@@ -1,7 +1,8 @@
 clear all;
 close all;
 
-bits = [1 0 0 0 0 0 0 0 0 1];
+bits = [1 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0];
+disp(bits);
 
 #B8zs is nothing but ami...just make the bit pattern with violation....
 #and then add a exta cndition for violaton that is for -1 in line 43...
@@ -14,22 +15,31 @@ endTime = length(bits)/bitrate;
 time = 0:samplingTime:endTime;
 index = 1;
 count=0;
+ct1 = 0;
 for i=1:length(bits)
   if(bits(i)==0)
   count+=1;
 endif
 if(bits(i)==1)
 count=0;
+ct1+=1;
 endif
-if(count==8)
-bits(i-1) = -1;
-bits(i) = 1;
-bits(i-3) = 1;
-bits(i-4) = -1;
-count=0;
+if(count==4)
+	if(mod(ct1,2)==0)
+		bits(i) = -1;
+		bits(i-3) = 1;
+		ct1+=2;
+	endif
+	if(mod(ct1,2)==1)
+	  bits(i) = -1;
+		ct1+=1;
+	endif
+	count=0;
 endif
+
 endfor
-pre = 1;
+disp(bits);
+pre = -1; %pre means previous voltage sign...before starting the bit pattern..
 if(bits(1)==1)
 pre = -pre;
 endif
@@ -57,7 +67,7 @@ grid on;
 
 %demodulation
 index = 1;
-pre = voltage;
+pre = -voltage;  %previous voltage...
 for i=1:length(modulation)
 if(modulation(i) == 0)
 demodulation(index) = 0;
@@ -76,10 +86,11 @@ endif
 index+=1;
 endif
 endfor
+disp(demodulation);
 for i=1:length(demodulation)
 if(demodulation(i)==-1)
 demodulation(i)=0;
-demodulation(i+1)=0;
+demodulation(i-3)=0;
 endif
 endfor
 disp(demodulation);
