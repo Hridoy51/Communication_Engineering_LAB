@@ -1,7 +1,7 @@
 clear all;
 close all;
 
-bits = [1 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0];
+bits = [0 1 0 1];
 disp(bits);
 
 #B8zs is nothing but ami...just make the bit pattern with violation....
@@ -39,7 +39,7 @@ endif
 
 endfor
 disp(bits);
-pre = -1; %pre means previous voltage sign...before starting the bit pattern..
+pre = 1; %pre means previous voltage sign...before starting the bit pattern..
 if(bits(1)==1)
 pre = -pre;
 endif

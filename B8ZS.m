@@ -1,7 +1,7 @@
 clear all;
 close all;
 
-bits = [1 0 0 0 0 0 0 0 0 1];
+bits = [1 0 0 0 0 0 0 ];
 
 #B8zs is nothing but ami...just make the bit pattern with violation....
 #and then add a exta cndition for violaton that is for -1 in line 43...
@@ -53,6 +53,7 @@ endfor
 plot(time, modulation, "LineWidth", 1);
 axis([0 endTime -voltage-5 voltage+5]);
 grid on;
+grid minor;
 
 
 %demodulation
